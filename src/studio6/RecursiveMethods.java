@@ -1,5 +1,7 @@
 package studio6;
 
+import java.util.Arrays;
+
 import edu.princeton.cs.introcs.StdDraw;
 
 public class RecursiveMethods {
@@ -11,10 +13,14 @@ public class RecursiveMethods {
 	 * @return the sum of the first n terms of the geometric series (1/2 + 1/4 + 1/8
 	 *         ...)
 	 */
-	public static double geometricSum(int n) {
+	public static double geometricSum(int N) {
 		
-			// FIXME compute the geometric sum for the first n terms recursively
+		if (N == 0) {
 			return 0;
+		}
+		else {
+			return Math.pow(0.5,N) + geometricSum(N-1);
+		}
 		
 	}
 
@@ -28,8 +34,12 @@ public class RecursiveMethods {
 	 */
 	public static int gcd(int p, int q) {
 		
-			// FIXME compute the gcd of p and q using recursion
-			return 0;
+			if (p%q == 0) {
+				return q;
+			}
+			else {
+				return gcd(q,p%q);
+			}
 		
 	}
 
@@ -43,9 +53,23 @@ public class RecursiveMethods {
 	 */
 	public static int[] toReversed(int[] array) {
 		
-			// FIXME create a helper method that can recursively reverse the given array
-			return new int[0];
+		int[] reversed = new int[array.length];
+		reversed = Arrays.copyOf(array, array.length);
+		return helper(reversed,reversed.length-1);
 		
+	}
+	
+	public static int[] helper(int[] array, int index) {
+		if (index <= array.length/2) {
+			return array;
+		}
+		else {
+			int mirrorIndex = array.length - index;
+			int k = array[mirrorIndex];
+			array[mirrorIndex] = array[index];
+			array[index] = k;
+			return helper(array,index-1);
+		}
 	}
 
 	/**
